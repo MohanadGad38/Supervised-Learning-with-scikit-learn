@@ -31,3 +31,28 @@ rmse = mean_squared_error(y_test, y_pred, squared=False)
 # Print the metrics
 print("R^2: {}".format(r_squared))
 print("RMSE: {}".format(rmse))
+
+
+#________
+# Import the necessary modules
+from sklearn.model_selection import cross_val_score, KFold
+
+# Create a KFold object
+kf = KFold(n_splits=6, shuffle=True, random_state=5)  #random state = seed
+
+reg = LinearRegression()
+
+# Compute 6-fold cross-validation scores
+cv_scores = cross_val_score(reg, X, y, cv=kf)
+
+# Print scores
+print(cv_scores) #output should be 6 values
+#_________________
+# Print the mean
+print(np.mean(cv_results))
+
+# Print the standard deviation
+print(np.std(cv_results))
+
+# Print the 95% confidence interval
+print(np.quantile(cv_results, [0.025, 0.975]))
